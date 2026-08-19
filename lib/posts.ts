@@ -6,6 +6,7 @@ export type PublicPost = {
   title: string;
   slug: string;
   description: string;
+  cover_image_url: string | null;
   content: unknown;
   published_at: string | null;
   updated_at: string;
@@ -17,7 +18,7 @@ const listPublicPosts = unstable_cache(
   async () => {
     const supabase = createPublicClient();
     const { data, error } = await (supabase.from("posts" as never) as any)
-      .select("id,title,slug,description,content,published_at,updated_at,categories(name,slug),profiles(full_name)")
+      .select("id,title,slug,description,cover_image_url,content,published_at,updated_at,categories(name,slug),profiles(full_name)")
       .eq("published", true)
       .order("published_at", { ascending: false })
       .order("updated_at", { ascending: false })

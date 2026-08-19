@@ -1,11 +1,13 @@
+"use client";
+
 import MainFooter from "@/components/main/footer/main-footer";
-import { getRequestLocale } from "@/lib/i18n-server";
-import { messages } from "@/lib/i18n";
+import { useLocale } from "@/components/shared/locale-provider";
 import { LogoIcon } from "@/icons";
 import Link from "next/link";
 
-const SharedNotFound = async () => {
-  const copy = messages[await getRequestLocale()].notFound;
+const SharedNotFound = () => {
+  const { messages } = useLocale();
+  const copy = messages.notFound;
 
   return (
     <div className="min-h-screen bg-background text-foreground">

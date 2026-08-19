@@ -4,6 +4,7 @@ import { messages } from "@/lib/i18n";
 import { sanitizeHtml } from "@/lib/utils";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const revalidate = 60;
 
@@ -31,6 +32,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     <h1 className="mt-4 text-4xl font-bold tracking-[-0.04em] text-foreground sm:text-5xl">{post.title}</h1>
     <p className="mt-5 text-lg leading-8 text-muted-foreground">{post.description}</p>
     <div className="mt-6 flex flex-wrap gap-x-3 text-sm text-muted-foreground"><span>{date}</span><span>·</span><span>{post.profiles?.full_name ?? copy.siteAuthor}</span></div>
+    {post.cover_image_url ? <Image src={post.cover_image_url} alt={post.title} width={1440} height={810} className="mt-10 aspect-[16/9] w-full rounded-2xl border border-border object-cover" priority /> : null}
     <div className="prose prose-slate mt-12 max-w-none dark:prose-invert" dangerouslySetInnerHTML={{ __html: sanitizeHtml(getPostHtml(post.content)) }} />
   </article>;
 }
