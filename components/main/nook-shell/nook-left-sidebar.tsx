@@ -1,6 +1,7 @@
 "use client";
 
 import LanguageSwitcher from "@/components/shared/language-switcher";
+import ThemeSwitcher from "@/components/shared/theme-switcher";
 import { useLocale } from "@/components/shared/locale-provider";
 import { LoginMenu } from "@/components/login";
 import { BookOpen, CircleHelp, FolderKanban, Home, Send, Tags } from "lucide-react";
@@ -35,7 +36,7 @@ export default function NookLeftSidebar() {
 
       <div className="mt-auto space-y-4 border-t border-border pt-5">
         <Link href="/submit" className="flex items-center gap-3 rounded-xl border border-border bg-background px-3 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-accent"><Send className="h-4 w-4 text-primary" aria-hidden="true" />{messages.navigation.submit}</Link>
-        <div className="flex items-center justify-between px-1"><LanguageSwitcher /><LoginMenu /></div>
+        <div className="flex items-center justify-between px-1"><LanguageSwitcher /><ThemeSwitcher /><LoginMenu /></div>
         <p className="px-1 text-xs leading-5 text-muted-foreground">{messages.nook.sidebarNote}</p>
       </div>
     </aside>

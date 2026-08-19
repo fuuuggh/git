@@ -1,4 +1,3 @@
-import { TailwindIndicator } from "@/components/main";
 import { seoData } from "@/config/root/seo";
 import { getUrl } from "@/lib/utils";
 import "@/styles/tailwind.css";
@@ -8,6 +7,7 @@ import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import { LocaleProvider } from "@/components/shared/locale-provider";
 import { getRequestLocale } from "@/lib/i18n-server";
+import { getRequestTheme } from "@/lib/theme-server";
 
 const fontSans = localFont({
   src: [
@@ -142,15 +142,15 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const locale = await getRequestLocale();
+  const theme = await getRequestTheme();
   return (
-    <html lang={locale === "zh" ? "zh-CN" : "en"} suppressHydrationWarning>
+    <html lang={locale === "zh" ? "zh-CN" : "en"} className={theme === "dark" ? "dark" : undefined} suppressHydrationWarning>
       <body className={fontSans.variable}>
         <LocaleProvider locale={locale}>
           <div className="min-h-screen bg-background font-sans text-foreground">
             {children}
             <VercelAnalytics />
             <Toaster position="top-center" />
-            <TailwindIndicator />
           </div>
         </LocaleProvider>
       </body>
