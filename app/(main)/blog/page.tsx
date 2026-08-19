@@ -2,8 +2,14 @@ import { getPublicPosts } from "@/lib/posts";
 import { getRequestLocale } from "@/lib/i18n-server";
 import { messages } from "@/lib/i18n";
 import Link from "next/link";
+import type { Metadata } from "next";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description: "Tutorials, learning notes, tool introductions and project records.",
+};
 
 export default async function BlogPage({ searchParams }: { searchParams: Promise<{ q?: string; category?: string }> }) {
   const { q, category } = await searchParams;

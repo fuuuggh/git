@@ -3,8 +3,21 @@ import { getRequestLocale } from "@/lib/i18n-server";
 import { messages } from "@/lib/i18n";
 import { sanitizeHtml } from "@/lib/utils";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 export const revalidate = 60;
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPublicPost(slug);
+  if (!post) return {};
+  return {
+    title: post.title,
+    description: post.description,
+    alternates: { canonical: `/blog/${post.slug}` },
+    openGraph: { type: "article", title: post.title, description: post.description },
+  };
+}
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
