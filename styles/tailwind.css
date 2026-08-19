@@ -1,0 +1,219 @@
+@import "tailwindcss";
+
+/* Source paths for content detection */
+@source "../pages/**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";
+@source "../app/**/*.{ts,tsx}";
+@source "../src/**/*.{ts,tsx}";
+
+/* Theme configuration - migrated from tailwind.config.js */
+@theme {
+  /* Font family */
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Border radius */
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* Colors - using CSS variables */
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  /* Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+/* Keyframes */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Base layer - CSS custom properties */
+@layer base {
+  :root {
+    --background: 40 33% 99%;
+    --foreground: 222 27% 12%;
+
+    --muted: 42 20% 95%;
+    --muted-foreground: 220 10% 42%;
+
+    --popover: 40 33% 99%;
+    --popover-foreground: 222 27% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 27% 12%;
+
+    --border: 220 14% 89%;
+    --input: 220 14% 89%;
+
+    --primary: 238 63% 39%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 235 58% 96%;
+    --secondary-foreground: 238 45% 27%;
+
+    --accent: 235 58% 96%;
+    --accent-foreground: 238 45% 27%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --ring: 238 63% 55%;
+
+    --radius: 0.875rem;
+
+    --accents-1: #fafafa;
+    --accents-2: #eaeaea;
+    --accents-dark-1: #555;
+    --accents-dark-2: #777;
+  }
+
+  .dark {
+    --background: 222 27% 9%;
+    --foreground: 40 20% 96%;
+
+    --muted: 222 18% 15%;
+    --muted-foreground: 220 12% 67%;
+
+    --popover: 222 27% 11%;
+    --popover-foreground: 40 20% 96%;
+
+    --card: 222 23% 12%;
+    --card-foreground: 40 20% 96%;
+
+    --border: 222 15% 20%;
+    --input: 222 15% 20%;
+
+    --primary: 229 85% 72%;
+    --primary-foreground: 222 27% 10%;
+
+    --secondary: 229 32% 18%;
+    --secondary-foreground: 229 85% 80%;
+
+    --accent: 229 32% 18%;
+    --accent-foreground: 229 85% 80%;
+
+    --destructive: 0 64% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --ring: 229 85% 72%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/* Components layer */
+@layer components {
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: var(--red);
+    transform-origin: 0%;
+  }
+  
+  .focus-ring-input {
+    @apply focus:border-indigo-500 focus:outline-none focus:ring-indigo-500;
+  }
+
+  .btn {
+    @apply focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2;
+  }
+
+  .focus-ring {
+    @apply rounded-sm transition duration-75 ease-in-out focus:border-transparent focus:outline-none focus:ring-2 focus:ring-indigo-500/75 focus:ring-offset-2;
+  }
+
+  .focus-within-ring {
+    @apply rounded-sm transition duration-75 ease-in-out focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500/75 focus-within:ring-offset-2;
+  }
+}
+
+/* Utilities layer */
+@layer utilities {
+  .skeleton {
+    background-image: linear-gradient(
+      270deg,
+      var(--accents-1),
+      var(--accents-2),
+      var(--accents-2),
+      var(--accents-1)
+    );
+    background-size: 400% 100%;
+    animation: loading 8s ease-in-out infinite;
+  }
+
+  .comment-grid {
+    grid-template-columns: fit-content(1.75rem) minmax(0, 1fr);
+  }
+
+  .dark .skeleton-dark {
+    background-image: linear-gradient(
+      270deg,
+      var(--accents-dark-1),
+      var(--accents-dark-2),
+      var(--accents-dark-2),
+      var(--accents-dark-1)
+    );
+    background-size: 400% 100%;
+    animation: loading 8s ease-in-out infinite;
+  }
+}
