@@ -163,7 +163,8 @@ export default async function PostPage({ params }: PostPageProps) {
 
   // Get comments
   const comments = await getComments(post.id as string);
-  const readTime = readingTime(post.content ? post.content : "");
+  const postContent = typeof post.content === "string" ? post.content : "";
+  const readTime = readingTime(postContent);
 
   return (
     <>
@@ -176,9 +177,9 @@ export default async function PostPage({ params }: PostPageProps) {
                 <DetailPostHeading
                   id={post.id}
                   title={post.title as string}
-                  image={post.image as string}
-                  authorName={post.profiles.full_name as string}
-                  authorImage={post.profiles.avatar_url as string}
+                  image={(post as any).cover_image_url ?? post.image}
+                  authorName={post.profiles?.full_name ?? "本站作者"}
+                  authorImage={post.profiles?.avatar_url ?? "/images/avatar.png"}
                   date={format(parseISO(post.updated_at!), "MMMM dd, yyyy")}
                   category={(post.categories as any)?.name as string}
                   readTime={readTime as ReadTimeResults}
@@ -201,7 +202,7 @@ export default async function PostPage({ params }: PostPageProps) {
               <div className="relative mx-auto max-w-3xl border-slate-500/50 py-5">
                 <div
                   className="lg:prose-md prose"
-                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content || "") }}
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(postContent) }}
                 />
               </div>
               <div className="mx-auto mt-10">

@@ -7,6 +7,7 @@ import { FC } from "react";
 import { ReadTimeResults } from "reading-time";
 
 async function getPublicImageUrl(postId: string, fileName: string) {
+  if (!fileName) return "/images/not-found.jpg";
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const bucketName =
@@ -23,9 +24,9 @@ async function getPublicImageUrl(postId: string, fileName: string) {
 interface DetailPostHeadingProps {
   id: string;
   title: string;
-  image: string;
-  authorImage: string;
-  authorName: string;
+  image?: string | null;
+  authorImage?: string | null;
+  authorName?: string | null;
   date: string;
   category: string;
   readTime: ReadTimeResults;
@@ -45,7 +46,7 @@ const DetailPostHeading: FC<DetailPostHeadingProps> = async ({
     <section className="flex flex-col items-start justify-between">
       <div className="relative w-full">
         <Image
-          src={await getPublicImageUrl(id, image)}
+          src={await getPublicImageUrl(id, image ?? "")}
           alt={title}
           width={512}
           height={288}
@@ -66,7 +67,7 @@ const DetailPostHeading: FC<DetailPostHeadingProps> = async ({
           {/* Author */}
           <div className="inline-flex items-start justify-start">
             <Image
-              src={authorImage}
+              src={authorImage ?? "/images/avatar.png"}
               height={24}
               width={24}
               alt={authorName || "Avatar"}
@@ -120,7 +121,7 @@ const DetailPostHeading: FC<DetailPostHeadingProps> = async ({
           {/* Author */}
           <div className="mb-5 flex flex-row items-start justify-start pr-3.5 md:mb-0">
             <Image
-              src={authorImage}
+              src={authorImage ?? "/images/avatar.png"}
               height={24}
               width={24}
               alt={authorName || "Avatar"}
