@@ -26,17 +26,17 @@ export default async function ResourcesPage({
 
   return (
     <>
-      <section className="border-b border-border pb-10 pt-4 sm:pb-14 sm:pt-8">
-        <p className="text-sm font-medium tracking-[0.16em] text-primary uppercase">{copy.eyebrow}</p>
+      <section className="rounded-3xl border border-border bg-card px-6 py-8 shadow-sm sm:px-8 sm:py-10">
+        <p className="text-xs font-bold tracking-[0.16em] text-primary uppercase">{copy.eyebrow}</p>
         <div className="mt-4 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
-            <h1 className="text-4xl font-bold tracking-[-0.04em] text-foreground">{copy.title}</h1>
+            <h1 className="text-4xl font-bold tracking-[-0.055em] text-foreground sm:text-5xl">{copy.title}</h1>
             <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">{copy.description}</p>
           </div>
           <Link href="/submit" className="shrink-0 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-accent">{copy.recommend}</Link>
         </div>
         <form className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-5" action="/resources">
-          <label htmlFor="resource-search" className="sr-only">搜索资源</label>
+          <label htmlFor="resource-search" className="sr-only">{copy.search}</label>
           <input id="resource-search" name="q" defaultValue={q} placeholder={copy.search} className="w-full rounded-xl border border-input bg-card px-4 py-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-ring/20 sm:col-span-2" />
           <select name="category" defaultValue={category} className="rounded-xl border border-input bg-card px-3 py-3 text-sm outline-none focus:border-primary"><option value="">{copy.allCategories}</option>{categories.map((item) => <option key={item.slug} value={item.slug}>{item.name}</option>)}</select>
           <select name="pricing" defaultValue={pricing} className="rounded-xl border border-input bg-card px-3 py-3 text-sm outline-none focus:border-primary"><option value="">{copy.allPricing}</option><option value="free">{copy.free}</option><option value="open_source">{copy.openSource}</option><option value="freemium">{copy.freemium}</option></select>
