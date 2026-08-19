@@ -16,17 +16,9 @@ async function getUserId() {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
   const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
-
-  if (error) {
-    console.log("Error has occured while getting UserId!");
-    console.log("Error message : ", error.message);
-    return null;
-  }
-
-  return user ? user.id : null;
+    data: { session },
+  } = await supabase.auth.getSession();
+  return session?.user.id ?? null;
 }
 
 async function getPost(postId: string, userId: string) {

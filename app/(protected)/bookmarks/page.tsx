@@ -36,8 +36,8 @@ const BookmarksPage: React.FC<BookmarksPageProps> = async ({
 
   // Fetch user data
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
   // Pagination
   const limit = 10;
@@ -56,7 +56,7 @@ const BookmarksPage: React.FC<BookmarksPageProps> = async ({
     .from("bookmarks")
     .select(`*, posts(*)`)
     .order("created_at", { ascending: false })
-    .match({ user_id: user?.id })
+    .match({ user_id: session?.user.id })
     .range(from, to)
     .returns<BookMarkWithPost[]>();
 

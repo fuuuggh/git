@@ -7,11 +7,13 @@ const LoginPage = async () => {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
 
+  // Reading the existing local session avoids a blocking network validation
+  // before showing a page that is otherwise entirely local.
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  user && redirect("/editor/posts");
+  session?.user && redirect("/editor/posts");
 
   return (
     <>

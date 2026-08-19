@@ -144,8 +144,9 @@ export default async function PostPage({ params }: PostPageProps) {
   let username = null;
   let profileImage = null;
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
+  const user = session?.user;
 
   if (user) {
     username = user.user_metadata.full_name;

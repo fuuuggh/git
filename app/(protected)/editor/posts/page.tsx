@@ -29,15 +29,15 @@ const PostsPage: FC<PostsPageProps> = async ({ searchParams }) => {
   const supabase = createClient(cookieStore);
   // Fetch user data
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
   // Fetch posts
   const { data, error } = await supabase
     .from("drafts")
     .select(`*, categories(*)`)
     .order("created_at", { ascending: false })
-    .match({ author_id: user?.id })
+    .match({ author_id: session?.user.id })
     .returns<Draft[]>();
 
   if (!data || error || !data.length) {

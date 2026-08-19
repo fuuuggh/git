@@ -7,9 +7,9 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminReviewsPage() {
   const supabase = createClient(await cookies());
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-  const { data: profile } = await (supabase.from("profiles") as any).select("role").eq("id", user.id).single();
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session?.user) redirect("/login");
+  const { data: profile } = await (supabase.from("profiles") as any).select("role").eq("id", session.user.id).single();
   if (profile?.role !== "admin") notFound();
   const [{ data: submissions }, { data: reports }] = await Promise.all([
     (supabase.from("submissions") as never as any).select("id,name,website_url,github_url,description,submitter_email,created_at,status").eq("status", "pending").order("created_at", { ascending: true }),
