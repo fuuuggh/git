@@ -1,6 +1,7 @@
 "use client";
 
 import { dashBoardMenu } from "@/config/shared/dashboard";
+import { useLocale } from "@/components/shared/locale-provider";
 import { cn, getUrl } from "@/lib/utils";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
@@ -20,6 +21,7 @@ const ProtectedMobileSideBar: FC<ProtectedMobileSideBarProps> = ({
   sidebarOpen,
   setSidebarOpen,
 }) => {
+  const { messages } = useLocale();
   const currentPath = usePathname();
   return (
     <>
@@ -67,7 +69,7 @@ const ProtectedMobileSideBar: FC<ProtectedMobileSideBarProps> = ({
                       className="-m-2.5 p-2.5"
                       onClick={() => setSidebarOpen(false)}
                     >
-                      <span className="sr-only">Close sidebar</span>
+                      <span className="sr-only">{messages.dashboard.closeSidebar}</span>
                       <XMarkIcon
                         className="h-6 w-6 text-white"
                         aria-hidden="true"
@@ -114,7 +116,7 @@ const ProtectedMobileSideBar: FC<ProtectedMobileSideBarProps> = ({
                                   )}
                                   aria-hidden="true"
                                 />
-                                {menu.title}
+                                {menu.slug === "/editor/posts" ? messages.dashboard.posts : menu.slug === "/bookmarks" ? messages.dashboard.bookmarks : messages.dashboard.settings}
                               </Link>
                             </li>
                           ))}

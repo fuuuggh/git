@@ -1,10 +1,12 @@
 import { dashBoardMenu } from "@/config/shared/dashboard";
+import { useLocale } from "@/components/shared/locale-provider";
 import { cn, getUrl } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const ProtectedDesktopSideBar = () => {
+  const { messages } = useLocale();
   const currentPath = usePathname();
   const path = currentPath.split("/");
   const pathSlug = `/${path.slice(1, 3).join("/")}`;
@@ -49,7 +51,7 @@ const ProtectedDesktopSideBar = () => {
                           )}
                           aria-hidden="true"
                         />
-                        {menu.title}
+                        {menu.slug === "/editor/posts" ? messages.dashboard.posts : menu.slug === "/bookmarks" ? messages.dashboard.bookmarks : messages.dashboard.settings}
                       </Link>
                     </li>
                   ))}

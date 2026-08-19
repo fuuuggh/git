@@ -3,6 +3,7 @@
 import { Disclosure, Transition } from "@headlessui/react";
 import Link from "next/link";
 import { ExoticComponent, FC, ReactNode } from "react";
+import { useLocale } from "@/components/shared/locale-provider";
 
 interface MainMobileNavigationMenuProps {
   fragment: ExoticComponent<{
@@ -13,11 +14,12 @@ interface MainMobileNavigationMenuProps {
 const MainMobileNavigationMenu: FC<MainMobileNavigationMenuProps> = ({
   fragment,
 }) => {
+  const { messages } = useLocale();
   const navigation = [
-    { title: "文章", href: "/" },
-    { title: "资源库", href: "/resources" },
-    { title: "投稿", href: "/submit" },
-    { title: "关于", href: "/about" },
+    { title: messages.navigation.posts, href: "/" },
+    { title: messages.navigation.resources, href: "/resources" },
+    { title: messages.navigation.submit, href: "/submit" },
+    { title: messages.navigation.about, href: "/about" },
   ];
 
   return (

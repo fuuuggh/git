@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useLocale } from "@/components/shared/locale-provider";
 import {
   Form,
   FormControl,
@@ -11,7 +12,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { mainPageContactConfig } from "@/config/main/pages";
 import { contactFormSchema } from "@/lib/validation/contact";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 as SpinnerIcon } from "lucide-react";
@@ -29,6 +29,8 @@ const defaultValues: Partial<ContactFormValues> = {
 };
 
 const MainContactPage = () => {
+  const { messages } = useLocale();
+  const copy = messages.contact;
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<ContactFormValues>({
@@ -55,24 +57,24 @@ const MainContactPage = () => {
       form.reset();
 
       if (!response?.ok) {
-        return toast.error(mainPageContactConfig.error);
+        return toast.error(copy.failed);
       }
     } catch (error) {
       // Handle error
-      console.error(mainPageContactConfig.error, error);
+      console.error(copy.failed, error);
     } finally {
       setIsLoading(false);
-      toast.success(mainPageContactConfig.emailSent);
+      toast.success(copy.sent);
     }
   }
   return (
     <>
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Contact us
+          {copy.title}
         </h2>
         <p className="mt-2 text-lg leading-8 text-gray-600">
-          Get in touch with us anytime, through email.
+          {copy.description}
         </p>
       </div>
       <Form {...form}>
@@ -86,7 +88,7 @@ const MainContactPage = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-600">
-                  {mainPageContactConfig.name}
+                  {copy.name}
                 </FormLabel>
                 <div className="mx-auto flex w-full max-w-md space-x-2">
                   <FormControl>
@@ -103,7 +105,7 @@ const MainContactPage = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-600">
-                  {mainPageContactConfig.email}
+                  {copy.email}
                 </FormLabel>
                 <div className="mx-auto flex w-full max-w-md space-x-2">
                   <FormControl>
@@ -120,7 +122,7 @@ const MainContactPage = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-gray-600">
-                  {mainPageContactConfig.message}
+                  {copy.message}
                 </FormLabel>
                 <div className="mx-auto flex w-full max-w-md space-x-2 bg-white">
                   <FormControl>
@@ -136,7 +138,7 @@ const MainContactPage = () => {
             className=" w-full max-w-sm items-center justify-center rounded-lg bg-gray-600 bg-gradient-to-t from-gray-200 via-gray-100 to-gray-50 px-3 py-2 text-sm text-gray-500 shadow-md shadow-black/5 ring-1 ring-black/10 transition duration-200 hover:bg-gradient-to-tr hover:from-gray-200 hover:via-gray-100 hover:to-gray-50 active:scale-[96%] active:ring-black/20"
           >
             {isLoading && <SpinnerIcon className="mr-2 h-4 w-4 animate-spin" />}
-            {mainPageContactConfig.send}
+            {copy.send}
           </Button>
         </form>
       </Form>

@@ -7,6 +7,7 @@ import {
   ProtectedTopBar,
 } from "./header";
 import { ProtectedDesktopSideBar, ProtectedMobileSideBar } from "./sidebars";
+import LanguageSwitcher from "@/components/shared/language-switcher";
 
 interface ProtectedMainProps {
   children?: ReactNode;
@@ -37,6 +38,7 @@ const ProtectedMain: FC<ProtectedMainProps> = ({ children }) => {
                 aria-hidden="true"
               />
 
+              <LanguageSwitcher />
               <ProtectedProfileDropDown />
             </div>
           </div>

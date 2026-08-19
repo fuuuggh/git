@@ -4,6 +4,7 @@ import { LoginMenu } from "@/components/login";
 import { Disclosure } from "@headlessui/react";
 import React, { Fragment } from "react";
 import { MainMobileMenuButton, MainMobileNavigationMenu } from "./menu";
+import LanguageSwitcher from "@/components/shared/language-switcher";
 
 const MainMobileNavigation = () => {
   return (
@@ -17,7 +18,8 @@ const MainMobileNavigation = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="flex flex-1 justify-end pr-2">
+            <div className="flex flex-1 items-center justify-end gap-3 pr-2">
+              <LanguageSwitcher />
               <MainMobileMenuButton open={open} />
             </div>
           </nav>

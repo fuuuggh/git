@@ -9,6 +9,7 @@ import {
 import { dashBoardLogout, dashBoardProfile } from "@/config/shared/dashboard";
 import { shimmer, toBase64 } from "@/lib/utils";
 import { Profile } from "@/types/collection";
+import { useLocale } from "@/components/shared/locale-provider";
 import { createClient } from "@/utils/supabase/client";
 import { Session } from "@supabase/supabase-js";
 import Image from "next/image";
@@ -17,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const ProtectedProfileDropDown = () => {
+  const { messages } = useLocale();
   const supabase = createClient();
   const router = useRouter();
   const [session, setSession] = useState<Session | null>(null);
@@ -65,7 +67,7 @@ const ProtectedProfileDropDown = () => {
         <DropdownMenuTrigger asChild>
           <Image
             src={avatarUrl || "/images/user-placeholder.png"}
-            alt="Avatar"
+            alt={messages.dashboard.avatar}
             height={40}
             width={40}
             className="h-[40px] w-[40px] rounded-full"
@@ -82,7 +84,7 @@ const ProtectedProfileDropDown = () => {
           >
             <dashBoardProfile.icon className="mr-2 h-4 w-4 text-gray-500 group-hover:text-gray-900" />
             <span className="text-sm text-gray-500 group-hover:text-gray-900">
-              {dashBoardProfile.title}
+              {messages.dashboard.profile}
             </span>
           </Link>
           <DropdownMenuSeparator />
@@ -94,7 +96,7 @@ const ProtectedProfileDropDown = () => {
           >
             <dashBoardLogout.icon className="mr-2 h-4 w-4 text-gray-500 group-hover:text-gray-900" />
             <span className="group-hover:text-gray-90 text-sm text-gray-500 group-hover:text-gray-900">
-              {dashBoardLogout.title}
+              {messages.dashboard.signOut}
             </span>
           </button>
         </DropdownMenuContent>

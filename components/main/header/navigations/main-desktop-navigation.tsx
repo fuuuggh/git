@@ -3,6 +3,7 @@ import { IconWrapperRounded, LogoIcon } from "@/icons";
 import Link from "next/link";
 import React from "react";
 import { MainDesktopNavigationMenu } from "./menu";
+import LanguageSwitcher from "@/components/shared/language-switcher";
 
 const MainDesktopNavigation = () => {
   return (
@@ -25,7 +26,8 @@ const MainDesktopNavigation = () => {
         </div>
 
         {/* Login Menu */}
-        <div className="flex flex-1 justify-end">
+        <div className="flex flex-1 items-center justify-end gap-3">
+          <LanguageSwitcher />
           <LoginMenu />
         </div>
       </nav>

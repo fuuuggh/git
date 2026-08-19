@@ -1,6 +1,6 @@
 "use client";
 
-import { sharedLoginConfig } from "@/config/shared";
+import { useLocale } from "@/components/shared/locale-provider";
 import { GithubIcon, GoogleIcon, LoadingDots } from "@/icons";
 import { getUrl } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/client";
@@ -20,23 +20,20 @@ const getLoginRedirectPath = (pathname?: string | null): string => {
   );
 };
 
-const FormSchema = z.object({
-  email: z
-    .string({
-      required_error: sharedLoginConfig.emailRequiredError,
-    })
-    .email(),
-  password: z.string().min(6, "密码至少需要 6 位"),
-});
-
 interface LoginSectionProps {
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const LoginSection: React.FC<LoginSectionProps> = ({ setOpen }) => {
+  const { messages } = useLocale();
+  const copy = messages.login;
+  const formSchema = z.object({
+    email: z.string().email(),
+    password: z.string().min(6, copy.passwordHint),
+  });
   const supabase = createClient();
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<{ email: string; password: string }>({
+    resolver: zodResolver(formSchema),
   });
   const [signInGoogleClicked, setSignInGoogleClicked] =
     React.useState<boolean>(false);
@@ -75,14 +72,14 @@ const LoginSection: React.FC<LoginSectionProps> = ({ setOpen }) => {
     router.refresh();
   }
 
-  async function signInWithEmail(values: z.infer<typeof FormSchema>) {
+  async function signInWithEmail(values: { email: string; password: string }) {
     setEmailError("");
     const { error } = await supabase.auth.signInWithPassword({
       email: values.email,
       password: values.password,
     });
     if (error) {
-      setEmailError(`登录失败：${error.message}`);
+      setEmailError(copy.failed.replace("{message}", error.message));
       return;
     }
     router.push("/");
@@ -104,19 +101,19 @@ const LoginSection: React.FC<LoginSectionProps> = ({ setOpen }) => {
             />
           </a>
           <h3 className="font-display text-2xl font-bold">
-            {sharedLoginConfig.title}
+            {copy.title}
           </h3>
         </div>
 
         {/* Sign in buttons with Social accounts */}
         <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
           <form onSubmit={form.handleSubmit(signInWithEmail)} className="space-y-3 border-b border-black/10 pb-5">
-            <label className="sr-only" htmlFor="login-email">邮箱</label>
-            <input id="login-email" type="email" placeholder="你的邮箱" {...form.register("email")} className="h-10 w-full rounded-md border border-gray-200 bg-white px-3 text-sm outline-none focus:border-primary" />
-            <label className="sr-only" htmlFor="login-password">密码</label>
-            <input id="login-password" type="password" placeholder="密码" {...form.register("password")} className="h-10 w-full rounded-md border border-gray-200 bg-white px-3 text-sm outline-none focus:border-primary" />
+            <label className="sr-only" htmlFor="login-email">{copy.email}</label>
+            <input id="login-email" type="email" placeholder={copy.emailPlaceholder} {...form.register("email")} className="h-10 w-full rounded-md border border-gray-200 bg-white px-3 text-sm outline-none focus:border-primary" />
+            <label className="sr-only" htmlFor="login-password">{copy.password}</label>
+            <input id="login-password" type="password" placeholder={copy.passwordPlaceholder} {...form.register("password")} className="h-10 w-full rounded-md border border-gray-200 bg-white px-3 text-sm outline-none focus:border-primary" />
             <button type="submit" className="flex h-10 w-full items-center justify-center rounded-md bg-primary text-sm font-semibold text-primary-foreground">
-              用邮箱和密码登录
+              {copy.signIn}
             </button>
             {emailError ? <p className="text-sm text-destructive">{emailError}</p> : null}
           </form>
@@ -134,7 +131,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ setOpen }) => {
             ) : (
               <>
                 <GoogleIcon className="h-5 w-5" />
-                <p>{sharedLoginConfig.google}</p>
+                <p>{copy.google}</p>
               </>
             )}
           </button>
@@ -153,7 +150,7 @@ const LoginSection: React.FC<LoginSectionProps> = ({ setOpen }) => {
             ) : (
               <>
                 <GithubIcon className="h-5 w-5" />
-                <p>{sharedLoginConfig.github}</p>
+                <p>{copy.github}</p>
               </>
             )}
           </button>

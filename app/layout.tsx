@@ -6,6 +6,8 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
+import { LocaleProvider } from "@/components/shared/locale-provider";
+import { getRequestLocale } from "@/lib/i18n-server";
 
 const fontSans = localFont({
   src: [
@@ -134,20 +136,23 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getRequestLocale();
   return (
-    <html lang="zh-CN" suppressHydrationWarning>
+    <html lang={locale === "zh" ? "zh-CN" : "en"} suppressHydrationWarning>
       <body className={fontSans.variable}>
-        <div className="min-h-screen bg-background font-sans text-foreground">
-          {children}
-          <VercelAnalytics />
-          <Toaster position="top-center" />
-          <TailwindIndicator />
-        </div>
+        <LocaleProvider locale={locale}>
+          <div className="min-h-screen bg-background font-sans text-foreground">
+            {children}
+            <VercelAnalytics />
+            <Toaster position="top-center" />
+            <TailwindIndicator />
+          </div>
+        </LocaleProvider>
       </body>
     </html>
   );

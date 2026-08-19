@@ -5,6 +5,8 @@ import { createPublicClient } from "@/utils/supabase/public";
 import { unstable_cache } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
+import { getRequestLocale } from "@/lib/i18n-server";
+import { messages } from "@/lib/i18n";
 
 export const revalidate = 60;
 
@@ -14,6 +16,7 @@ interface HomePageProps {
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const resolvedSearchParams = await searchParams;
+  const copy = messages[await getRequestLocale()].home;
   const limit = 10;
   // Resolve the requested page before querying, then get both content and the
   // total in one database request instead of making a separate count call.
@@ -52,26 +55,26 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     <>
       <section className="border-b border-border pb-12 pt-4 sm:pb-16 sm:pt-8">
         <p className="text-sm font-medium tracking-[0.16em] text-primary uppercase">
-          分享 · 记录 · 连接
+          {copy.eyebrow}
         </p>
         <h1 className="mt-5 max-w-3xl text-4xl font-bold tracking-[-0.04em] text-foreground sm:text-5xl">
-          值得长期保存的知识与免费资源。
+          {copy.title}
         </h1>
         <p className="mt-5 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
-          这里整理学习笔记、实用工具与可靠的开源资源；不收费、不做付费会员，把时间留给真正有价值的内容。
+          {copy.description}
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
             href="#latest"
             className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
-            阅读最新文章
+            {copy.readLatest}
           </Link>
           <Link
             href="/about"
             className="rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold text-foreground transition-colors duration-200 hover:border-primary/35 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
-            了解本站
+            {copy.learnMore}
           </Link>
         </div>
       </section>
@@ -79,10 +82,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       <section id="latest" className="py-10 sm:py-14">
         <div className="mb-6 flex items-baseline justify-between gap-4">
           <h2 className="text-xl font-bold tracking-tight text-foreground">
-            最新文章
+            {copy.latest}
           </h2>
           {data?.length ? (
-            <span className="text-sm text-muted-foreground">持续更新中</span>
+            <span className="text-sm text-muted-foreground">{copy.latestHint}</span>
           ) : null}
         </div>
 
@@ -96,9 +99,9 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           </div>
         ) : (
           <div className="rounded-[var(--radius)] border border-dashed border-border bg-card px-6 py-12 text-center sm:px-10">
-            <p className="text-base font-semibold text-foreground">内容正在整理中</p>
+            <p className="text-base font-semibold text-foreground">{copy.emptyTitle}</p>
             <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-              首批文章和资源会陆续发布。欢迎稍后回来，或从“关于本站”了解这份整理的方向。
+              {copy.emptyDescription}
             </p>
           </div>
         )}

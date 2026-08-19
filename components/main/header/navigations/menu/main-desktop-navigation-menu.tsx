@@ -3,14 +3,16 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLocale } from "@/components/shared/locale-provider";
 
 const MainDesktopNavigationMenu = () => {
   const currentPath = usePathname();
+  const { messages } = useLocale();
   const navigation = [
-    { title: "文章", href: "/" },
-    { title: "资源库", href: "/resources" },
-    { title: "投稿", href: "/submit" },
-    { title: "关于", href: "/about" },
+    { title: messages.navigation.posts, href: "/" },
+    { title: messages.navigation.resources, href: "/resources" },
+    { title: messages.navigation.submit, href: "/submit" },
+    { title: messages.navigation.about, href: "/about" },
   ];
   return (
     <>
