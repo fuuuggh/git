@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
 import { useMemo } from "react";
+import { useLocale } from "@/components/shared/locale-provider";
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { DataTableViewOptions } from "./data-table-view-options";
 import { categories, statuses } from "./data/data";
@@ -16,6 +17,7 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
+  const { messages } = useLocale();
   const isFiltered = table.getState().columnFilters.length > 0;
 
   // Get column IDs to avoid calling getColumn on non-existent columns
@@ -31,7 +33,7 @@ export function DataTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter posts..."
+          placeholder={messages.table.filterPosts}
           value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
@@ -41,14 +43,14 @@ export function DataTableToolbar<TData>({
         {hasStatusColumn && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
-            title="Status"
+            title={messages.table.status}
             options={statuses}
           />
         )}
         {hasCategoryColumn && (
           <DataTableFacetedFilter
             column={table.getColumn("category_id")}
-            title="Category"
+            title={messages.table.category}
             options={categories}
           />
         )}
@@ -58,7 +60,7 @@ export function DataTableToolbar<TData>({
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >
-            Reset
+            {messages.table.reset}
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
