@@ -5,4 +5,4 @@ export { default as MainPostItem } from "./post/main-post-item";
 export { default as MainPostItemLoading } from "./post/main-post-item-loading";
 export { default as MainResourceCard } from "./resource/main-resource-card";
 export { default as TailwindIndicator } from "./tailwind-indicator/tailwind-indicator";
-export { NookLeftSidebar, NookPostCard, NookRightSidebar } from "./nook-shell";
+export { NookDesktopTopbar, NookLeftSidebar, NookPostCard, NookRightSidebar } from "./nook-shell";

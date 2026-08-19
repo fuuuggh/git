@@ -1,4 +1,4 @@
-import { MainFooter, MainGrid, MainHeader, NookLeftSidebar, NookRightSidebar } from "@/components/main";
+import { MainFooter, MainGrid, MainHeader, NookDesktopTopbar, NookLeftSidebar, NookRightSidebar } from "@/components/main";
 import { ReactNode } from "react";
 
 export default function MainLayout({ children }: { children: ReactNode }) {
@@ -7,6 +7,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       <NookLeftSidebar />
       <div className="min-w-0">
         <MainHeader />
+        <NookDesktopTopbar />
         <MainGrid>
           <main className="min-h-[calc(100vh-4rem)] px-5 py-8 sm:px-8 sm:py-10 lg:px-10 xl:px-12">
             <div className="mx-auto max-w-5xl">{children}</div>
