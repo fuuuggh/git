@@ -88,6 +88,9 @@ export async function reviewSubmission(formData: FormData) {
       }
       await supabase.storage.from("submission-files").remove([submission.attachment_path]);
     }
+  } else if (submission.attachment_path) {
+    // Rejected anonymous files must not accumulate in private storage.
+    await supabase.storage.from("submission-files").remove([submission.attachment_path]);
   }
 
   await (supabase.from("submissions") as never as any)
