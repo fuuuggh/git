@@ -7,33 +7,33 @@ const MainAboutPage = () => {
   const { messages } = useLocale();
   const copy = messages.about;
   return (
-    <div className="py-5">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl space-y-6 lg:text-center">
-          <h2 className="text-sm font-semibold tracking-[0.16em] text-primary uppercase">
+    <div className="py-4 sm:py-8">
+      <div className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
+        <div className="max-w-2xl space-y-5">
+          <h2 className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">
             {copy.eyebrow}
           </h2>
-          <p className="mt-3 text-3xl font-bold tracking-[-0.035em] text-foreground sm:text-4xl">
+          <p className="text-3xl font-bold tracking-[-0.045em] text-foreground sm:text-4xl">
             {copy.title}
           </p>
-          <p className="mt-6 text-lg leading-8 text-muted-foreground">
+          <p className="text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
             {copy.description}
           </p>
         </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+        <div className="mt-9">
+          <dl className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {mainPageAboutConfig.features.map((feature, index) => (
-              <div key={feature.name} className="relative pl-16">
-                <dt className="text-base font-semibold leading-7 text-foreground">
-                  <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
+              <div key={feature.name} className="rounded-2xl border border-border bg-background p-5">
+                <dt className="flex items-center gap-3 text-base font-semibold leading-7 text-foreground">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-secondary text-primary">
                     <feature.icon
-                      className="h-6 w-6 text-white"
+                      className="h-4 w-4"
                       aria-hidden="true"
                     />
                   </div>
                   {copy.features[index]?.[0]}
                 </dt>
-                <dd className="mt-2 text-base leading-7 text-muted-foreground">
+                <dd className="mt-4 text-sm leading-6 text-muted-foreground">
                   {copy.features[index]?.[1]}
                 </dd>
               </div>

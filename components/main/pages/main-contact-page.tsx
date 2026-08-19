@@ -41,7 +41,6 @@ const MainContactPage = () => {
   async function onSubmit(data: ContactFormValues) {
     try {
       setIsLoading(true);
-      // Send email using Nodemailer
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -53,46 +52,46 @@ const MainContactPage = () => {
           message: data.message,
         }),
       });
-      setIsLoading(false);
-      form.reset();
-
       if (!response?.ok) {
-        return toast.error(copy.failed);
+        throw new Error("Contact request failed");
       }
+      form.reset();
+      toast.success(copy.sent);
     } catch (error) {
-      // Handle error
       console.error(copy.failed, error);
+      toast.error(copy.failed);
     } finally {
       setIsLoading(false);
-      toast.success(copy.sent);
     }
   }
   return (
-    <>
-      <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+    <div className="py-4 sm:py-8">
+      <div className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
+      <div className="max-w-2xl">
+        <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">nook</p>
+        <h2 className="mt-3 text-3xl font-bold tracking-[-0.045em] text-foreground sm:text-4xl">
           {copy.title}
         </h2>
-        <p className="mt-2 text-lg leading-8 text-gray-600">
+        <p className="mt-4 text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
           {copy.description}
         </p>
       </div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="mx-auto my-10 space-y-4 text-center"
+          className="mt-8 grid max-w-2xl gap-5"
         >
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-gray-600">
+                <FormLabel className="text-sm font-medium text-foreground">
                   {copy.name}
                 </FormLabel>
-                <div className="mx-auto flex w-full max-w-md space-x-2">
+                <div className="flex w-full">
                   <FormControl>
-                    <Input {...field} />
+                    <Input className="rounded-xl bg-background" {...field} />
                   </FormControl>
                 </div>
                 <FormMessage />
@@ -104,12 +103,12 @@ const MainContactPage = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-gray-600">
+                <FormLabel className="text-sm font-medium text-foreground">
                   {copy.email}
                 </FormLabel>
-                <div className="mx-auto flex w-full max-w-md space-x-2">
+                <div className="flex w-full">
                   <FormControl>
-                    <Input {...field} />
+                    <Input className="rounded-xl bg-background" {...field} />
                   </FormControl>
                 </div>
                 <FormMessage />
@@ -121,12 +120,12 @@ const MainContactPage = () => {
             name="message"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-gray-600">
+                <FormLabel className="text-sm font-medium text-foreground">
                   {copy.message}
                 </FormLabel>
-                <div className="mx-auto flex w-full max-w-md space-x-2 bg-white">
+                <div className="flex w-full">
                   <FormControl>
-                    <Textarea className="resize-none" {...field} />
+                    <Textarea className="min-h-36 resize-y rounded-xl bg-background" {...field} />
                   </FormControl>
                 </div>
                 <FormMessage />
@@ -135,14 +134,15 @@ const MainContactPage = () => {
           />
           <Button
             type="submit"
-            className=" w-full max-w-sm items-center justify-center rounded-lg bg-gray-600 bg-gradient-to-t from-gray-200 via-gray-100 to-gray-50 px-3 py-2 text-sm text-gray-500 shadow-md shadow-black/5 ring-1 ring-black/10 transition duration-200 hover:bg-gradient-to-tr hover:from-gray-200 hover:via-gray-100 hover:to-gray-50 active:scale-[96%] active:ring-black/20"
+            className="w-fit rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90 active:scale-[0.98]"
           >
             {isLoading && <SpinnerIcon className="mr-2 h-4 w-4 animate-spin" />}
             {copy.send}
           </Button>
         </form>
       </Form>
-    </>
+      </div>
+    </div>
   );
 };
 

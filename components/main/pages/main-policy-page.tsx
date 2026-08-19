@@ -7,27 +7,26 @@ const MainPolicyPage = () => {
   const { messages } = useLocale();
   const copy = messages.legal;
   return (
-    <div className="bg-white py-5">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl">
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+    <div className="py-4 sm:py-8">
+      <div className="max-w-3xl rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
+          <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">nook</p>
+          <h1 className="mt-3 text-3xl font-bold tracking-[-0.045em] text-foreground sm:text-4xl">
             {copy.policyTitle}
-          </p>
-          <h2 className="text-md my-6 leading-7 text-gray-600">
+          </h1>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
             {copy.policyDescription}
-          </h2>
+          </p>
 
           {copy.policy.map((item) => (
-            <div key={item[0]}>
-              <p className="mt-6 text-xl font-semibold text-gray-900">
+            <section key={item[0]} className="mt-7 border-t border-border pt-6 first:border-0 first:pt-0">
+              <h2 className="text-lg font-semibold tracking-[-0.025em] text-foreground">
                 {item[0]}
-              </p>
-              <p className="text-md mt-2 leading-8 text-gray-600">
+              </h2>
+              <p className="mt-2 text-sm leading-7 text-muted-foreground sm:text-base">
                 {item[1]}
               </p>
-            </div>
+            </section>
           ))}
-        </div>
       </div>
     </div>
   );

@@ -6,9 +6,11 @@ export default async function SubmitPage() {
   const copy = messages[await getRequestLocale()].submit;
   return (
     <section className="py-4 sm:py-8">
-      <p className="text-sm font-medium tracking-[0.16em] text-primary uppercase">{copy.eyebrow}</p>
-      <h1 className="mt-4 text-4xl font-bold tracking-[-0.04em] text-foreground">{copy.title}</h1>
-      <p className="mt-5 max-w-2xl leading-7 text-muted-foreground">{copy.description}</p>
+      <div className="rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
+        <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">{copy.eyebrow}</p>
+        <h1 className="mt-3 text-3xl font-bold tracking-[-0.045em] text-foreground sm:text-4xl">{copy.title}</h1>
+        <p className="mt-4 max-w-2xl leading-7 text-muted-foreground">{copy.description}</p>
+      </div>
       <MainResourceSubmitForm />
     </section>
   );

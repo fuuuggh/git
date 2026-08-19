@@ -7,19 +7,20 @@ const MainTermsPage = () => {
   const { messages } = useLocale();
   const copy = messages.legal;
   return (
-    <div className="bg-white py-5">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl">
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+    <div className="py-4 sm:py-8">
+      <div className="max-w-3xl rounded-3xl border border-border bg-card p-6 shadow-sm sm:p-8">
+          <p className="text-xs font-semibold tracking-[0.16em] text-primary uppercase">nook</p>
+          <h1 className="mt-3 text-3xl font-bold tracking-[-0.045em] text-foreground sm:text-4xl">
             {copy.termsTitle}
-          </p>
+          </h1>
 
-          {copy.terms.map((item) => (
-            <p key={item} className="text-md mt-8 leading-8 text-gray-600">
+          <ol className="mt-8 space-y-5">
+          {copy.terms.map((item, index) => (
+            <li key={item} className="flex gap-4 text-sm leading-7 text-muted-foreground sm:text-base"><span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-secondary text-xs font-semibold text-primary">{index + 1}</span>
               {item}
-            </p>
+            </li>
           ))}
-        </div>
+          </ol>
       </div>
     </div>
   );
