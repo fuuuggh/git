@@ -2,6 +2,16 @@ import { createPublicClient } from "@/utils/supabase/public";
 import { unstable_cache } from "next/cache";
 
 export type ResourcePricing = "free" | "freemium" | "open_source";
+export type ResourceType = "website" | "open_source" | "download" | "document" | "template" | "asset" | "api" | "service";
+
+export type ResourceAttachment = {
+  id: string;
+  storage_path: string;
+  file_name: string;
+  mime_type: string;
+  size_bytes: number;
+  url: string;
+};
 
 export type PublicResource = {
   id: string;
@@ -12,6 +22,7 @@ export type PublicResource = {
   website_url: string | null;
   github_url: string | null;
   download_url: string | null;
+  resource_type: ResourceType;
   pricing: ResourcePricing;
   open_source: boolean;
   platforms: string[];
@@ -22,6 +33,7 @@ export type PublicResource = {
   last_checked_at: string | null;
   categories: { name: string; slug: string } | null;
   tags: { name: string; slug: string }[];
+  attachments: ResourceAttachment[];
 };
 
 export type ResourceFilters = {
@@ -38,13 +50,24 @@ const listPublicResources = unstable_cache(
 
   // Generated Supabase types are refreshed after linking the project. Keeping
   // this boundary isolated prevents that tooling step from leaking into UI code.
-    const { data, error } = await (supabase.from("resources" as never) as any)
-    .select(
-      "id,name,slug,description,long_description,website_url,github_url,download_url,pricing,open_source,platforms,license,featured,status,updated_at,last_checked_at,categories(name,slug),resource_tags(tags(name,slug))",
+    let response = await (supabase.from("resources" as never) as any)
+      .select(
+      "id,name,slug,description,long_description,website_url,github_url,download_url,resource_type,pricing,open_source,platforms,license,featured,status,updated_at,last_checked_at,categories(name,slug),resource_tags(tags(name,slug)),resource_attachments(id,storage_path,file_name,mime_type,size_bytes)",
     )
     .eq("status", "active")
     .order("featured", { ascending: false })
     .order("updated_at", { ascending: false });
+
+    // Keep the public directory available while an existing project is waiting
+    // for the attachment migration to be applied.
+    if (response.error && /resource_(attachments|type)/.test(response.error.message)) {
+      response = await (supabase.from("resources" as never) as any)
+        .select("id,name,slug,description,long_description,website_url,github_url,download_url,pricing,open_source,platforms,license,featured,status,updated_at,last_checked_at,categories(name,slug),resource_tags(tags(name,slug))")
+        .eq("status", "active")
+        .order("featured", { ascending: false })
+        .order("updated_at", { ascending: false });
+    }
+    const { data, error } = response;
 
     if (error) {
       console.error("Unable to load resources:", error.message);
@@ -53,9 +76,14 @@ const listPublicResources = unstable_cache(
 
     return (data ?? []).map((resource: any) => ({
       ...resource,
+      resource_type: resource.resource_type ?? "website",
       tags: (resource.resource_tags ?? [])
         .map((item: { tags: { name: string; slug: string } | null }) => item.tags)
         .filter(Boolean),
+      attachments: (resource.resource_attachments ?? []).map((attachment: Omit<ResourceAttachment, "url">) => ({
+        ...attachment,
+        url: supabase.storage.from("resource-files").getPublicUrl(attachment.storage_path).data.publicUrl,
+      })),
     })) as PublicResource[];
   },
   ["public-resources"],

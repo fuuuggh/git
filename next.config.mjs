@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
+    serverActions: {
+      bodySizeLimit: "26mb",
+    },
     optimizePackageImports: [
       "icons",
       "icons/categories",

@@ -70,6 +70,8 @@ export async function createPublishedPost(formData: FormData) {
   if (error) redirect("/admin/posts/new?error=save");
 
   revalidatePath("/");
+  revalidatePath("/blog");
+  revalidatePath(`/blog/${parsed.data.slug}`);
   revalidatePath(`/posts/${parsed.data.slug}`);
   redirect("/admin/reviews");
 }

@@ -38,7 +38,7 @@ const MainPostItem: React.FC<MainPostItemProps> = async ({ post }) => {
     <>
       <div className="group relative w-full rounded-2xl bg-card p-1 shadow-sm ring-1 ring-border transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md">
         <div className="relative max-w-full rounded-[0.72rem]">
-          <Link href={`/posts/${post.slug}`}>
+          <Link href={`/blog/${post.slug}`}>
             <article className="relative isolate flex max-w-3xl flex-col gap-2 rounded-xl bg-card px-5 py-5 sm:gap-8 sm:px-8 sm:py-7 lg:flex-row">
               <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
                 <Image

@@ -65,7 +65,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
-            href="#latest"
+            href="/blog"
             className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           >
             {copy.readLatest}

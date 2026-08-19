@@ -1,12 +1,17 @@
-import { dashBoardMenu } from "@/config/shared/dashboard";
 import { useLocale } from "@/components/shared/locale-provider";
 import { cn, getUrl } from "@/lib/utils";
+import { ClipboardCheck, FileText, LibraryBig } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const ProtectedDesktopSideBar = () => {
   const { messages } = useLocale();
+  const navigation = [
+    { title: messages.dashboard.reviews, slug: "/admin/reviews", icon: ClipboardCheck },
+    { title: messages.dashboard.posts, slug: "/admin/posts", icon: FileText },
+    { title: messages.dashboard.resources, slug: "/admin/resources", icon: LibraryBig },
+  ];
   const currentPath = usePathname();
   const path = currentPath.split("/");
   const pathSlug = `/${path.slice(1, 3).join("/")}`;
@@ -30,7 +35,7 @@ const ProtectedDesktopSideBar = () => {
             <ul role="list" className="flex flex-1 flex-col gap-y-7">
               <li>
                 <ul role="list" className="-mx-2 space-y-1">
-                  {dashBoardMenu.map((menu) => (
+                  {navigation.map((menu) => (
                     <li key={menu.slug}>
                       <Link
                         href={menu.slug || ""}
@@ -51,7 +56,7 @@ const ProtectedDesktopSideBar = () => {
                           )}
                           aria-hidden="true"
                         />
-                        {menu.slug === "/editor/posts" ? messages.dashboard.posts : menu.slug === "/bookmarks" ? messages.dashboard.bookmarks : messages.dashboard.settings}
+                        {menu.title}
                       </Link>
                     </li>
                   ))}

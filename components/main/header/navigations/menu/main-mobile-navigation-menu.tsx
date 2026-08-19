@@ -16,7 +16,7 @@ const MainMobileNavigationMenu: FC<MainMobileNavigationMenuProps> = ({
 }) => {
   const { messages } = useLocale();
   const navigation = [
-    { title: messages.navigation.posts, href: "/" },
+    { title: messages.navigation.posts, href: "/blog" },
     { title: messages.navigation.resources, href: "/resources" },
     { title: messages.navigation.submit, href: "/submit" },
     { title: messages.navigation.about, href: "/about" },
