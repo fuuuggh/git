@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+const supabaseHostname = new URL(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || "https://iskzuogcmkzumadqjnbv.supabase.co",
+).hostname;
+
 const nextConfig = {
   experimental: {
     serverActions: {
@@ -47,7 +51,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "iskzuogcmkzumadqjnbv.supabase.co",
+        hostname: supabaseHostname,
       },
     ],
   },
