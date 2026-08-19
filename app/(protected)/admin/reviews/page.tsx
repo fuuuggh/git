@@ -16,7 +16,7 @@ export default async function AdminReviewsPage() {
 
   return (
     <main className="mx-auto max-w-5xl space-y-10 px-6 py-10">
-      <header><p className="text-sm font-medium tracking-[0.16em] text-primary uppercase">管理员</p><h1 className="mt-3 text-3xl font-bold tracking-tight">审核队列</h1><div className="mt-5 flex flex-wrap gap-3"><a href="/admin/posts/new" className="inline-flex rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">发布文章</a><a href="/admin/resources/new" className="inline-flex rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground">发布资源</a></div></header>
+      <header><p className="text-sm font-medium tracking-[0.16em] text-primary uppercase">管理员</p><h1 className="mt-3 text-3xl font-bold tracking-tight">审核队列</h1><div className="mt-5 flex flex-wrap gap-3"><a href="/admin/posts/new" className="inline-flex rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">发布文章</a><a href="/admin/resources/new" className="inline-flex rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground">发布资源</a><a href="/admin/resources" className="inline-flex rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground">管理资源</a></div></header>
       <AdminReviewQueues />
     </main>
   );
