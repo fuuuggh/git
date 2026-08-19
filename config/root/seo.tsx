@@ -1,12 +1,12 @@
 import { SeoType } from "types";
 
 export const seoData: SeoType = {
-  title: "公益资源与博客",
+  title: "nook",
   subTitle: "长期整理值得使用的免费资源、学习笔记与实践记录。",
-  absoluteTitle: "公益资源与博客",
-  ogTitle: "公益资源与博客｜免费资源与知识分享",
+  absoluteTitle: "nook",
+  ogTitle: "nook｜免费资源与知识分享",
   author: {
-    name: "公益资源与博客",
+    name: "nook",
     twitterUrl: "https://github.com/fuuuggh",
     twitterAddress: "",
   },

@@ -4,3 +4,4 @@ export { default as MainFooter } from "./footer/main-footer";
 export { default as MainPostItem } from "./post/main-post-item";
 export { default as MainPostItemLoading } from "./post/main-post-item-loading";
 export { default as TailwindIndicator } from "./tailwind-indicator/tailwind-indicator";
+export { NookLeftSidebar, NookRightSidebar } from "./nook-shell";

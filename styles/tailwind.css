@@ -80,36 +80,36 @@
 /* Base layer - CSS custom properties */
 @layer base {
   :root {
-    --background: 40 33% 99%;
-    --foreground: 222 27% 12%;
+    --background: 35 24% 98%;
+    --foreground: 222 22% 12%;
 
-    --muted: 42 20% 95%;
-    --muted-foreground: 220 10% 42%;
+    --muted: 30 18% 94%;
+    --muted-foreground: 220 9% 42%;
 
-    --popover: 40 33% 99%;
-    --popover-foreground: 222 27% 12%;
+    --popover: 35 24% 98%;
+    --popover-foreground: 222 22% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 27% 12%;
+    --card-foreground: 222 22% 12%;
 
-    --border: 220 14% 89%;
-    --input: 220 14% 89%;
+    --border: 220 12% 89%;
+    --input: 220 12% 86%;
 
-    --primary: 238 63% 39%;
+    --primary: 222 22% 13%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 235 58% 96%;
-    --secondary-foreground: 238 45% 27%;
+    --secondary: 223 58% 96%;
+    --secondary-foreground: 226 54% 35%;
 
-    --accent: 235 58% 96%;
-    --accent-foreground: 238 45% 27%;
+    --accent: 223 58% 96%;
+    --accent-foreground: 226 54% 35%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --ring: 238 63% 55%;
+    --ring: 226 63% 53%;
 
-    --radius: 0.875rem;
+    --radius: 1rem;
 
     --accents-1: #fafafa;
     --accents-2: #eaeaea;
@@ -118,23 +118,23 @@
   }
 
   .dark {
-    --background: 222 27% 9%;
-    --foreground: 40 20% 96%;
+    --background: 222 22% 9%;
+    --foreground: 35 16% 95%;
 
-    --muted: 222 18% 15%;
-    --muted-foreground: 220 12% 67%;
+    --muted: 222 16% 15%;
+    --muted-foreground: 220 10% 67%;
 
-    --popover: 222 27% 11%;
-    --popover-foreground: 40 20% 96%;
+    --popover: 222 20% 11%;
+    --popover-foreground: 35 16% 95%;
 
-    --card: 222 23% 12%;
-    --card-foreground: 40 20% 96%;
+    --card: 222 18% 12%;
+    --card-foreground: 35 16% 95%;
 
     --border: 222 15% 20%;
     --input: 222 15% 20%;
 
-    --primary: 229 85% 72%;
-    --primary-foreground: 222 27% 10%;
+    --primary: 223 73% 75%;
+    --primary-foreground: 222 22% 10%;
 
     --secondary: 229 32% 18%;
     --secondary-foreground: 229 85% 80%;

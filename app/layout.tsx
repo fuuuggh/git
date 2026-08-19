@@ -33,7 +33,7 @@ const fontSans = localFont({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | 公益资源与博客",
+    template: "%s | nook",
     default: seoData.title,
     absolute: seoData.absoluteTitle,
   },
